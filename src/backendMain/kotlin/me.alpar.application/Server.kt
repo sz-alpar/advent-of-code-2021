@@ -35,7 +35,7 @@ fun main() {
         install(SinglePageApplication) {
             defaultPage = "index.html"
             folderPath = "html/"
-            ignoreIfContains = """/static/.*""".toRegex()
+            ignoreIfContains = """^/static/.*""".toRegex()
         }
         routing {
             static("/static") {

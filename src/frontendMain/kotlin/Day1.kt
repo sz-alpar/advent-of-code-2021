@@ -6,7 +6,7 @@ external interface Day1Props : RProps {
 }
 
 val day1 = functionalComponent<Day1Props>("Welcome") { props ->
-    val (input, setInput) = useState("Loading...")
+    val (input, setInput) = useState("")
 
     window.fetch("/static/day1.txt")
         .then {
@@ -15,11 +15,15 @@ val day1 = functionalComponent<Day1Props>("Welcome") { props ->
             setInput(it)
         }
 
+    val lines = if (input.isNotEmpty()) input.split("\n").map { it.toInt() } else emptyList()
+
+    val increasedCount = lines.zipWithNext { a: Int, b: Int -> if (a < b) 1 else null }.filterNotNull().size
+
     div {
         +"Day1"
     }
     div {
-        +input
+        +"Answer: $increasedCount"
     }
 //    div {
 //        styledDiv {
